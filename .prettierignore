@@ -1,0 +1,44 @@
+# Wordpress
+public/wp-admin
+public/wp-content/mu-plugins/index.php
+public/wp-content/plugins
+public/wp-content/themes/index.php
+public/wp-content/themes/oak-theme/assets
+public/wp-content/upgrade
+public/wp-content/uploads
+public/wp-content/index.php
+public/wp-includes
+public/xmlrpc.php
+public/license.txt
+public/readme.html
+public/index.php
+public/*.php
+
+# Other files
+public/.env
+public/.htaccess
+
+# NPM
+node_modules
+package-lock.json
+pnpm-lock.yaml
+
+# Build files
+.next/*
+dist/*
+
+# Devenv
+.devenv/
+.direnv/
+devenv*
+
+# Composer
+public/vendor
+composer.lock
+
+# Markdown: use markdownlint instead (https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+*.md
+
+# Editor configs
+.idea/
+.vscode/
