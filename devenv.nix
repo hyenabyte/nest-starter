@@ -1,28 +1,43 @@
 { pkgs, ... }:
 
 {
-  # https://devenv.sh/basics/
-  env.GREET = "devenv";
+  packages = with pkgs; [
+    git
+    nodejs-18_x
+    # prisma-engines
+    nodePackages.pnpm
+    # nodePackages.prisma
+    nodePackages.prettier
+    nodePackages.typescript-language-server
+  ];
 
-  # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  languages.typescript.enable = true;
 
-  # https://devenv.sh/scripts/
-  scripts.hello.exec = "echo hello from $GREET";
+  pre-commit.hooks = {
+    eslint.enable = true;
+    prettier.enable = true;
+    # editorconfig-checker.enable = true;
+  };
 
-  enterShell = ''
-    hello
-    git --version
-  '';
+  # services.postgres = {
+  #   enable = true;
+  #   listen_addresses = "127.0.0.1";
+  #   port = 5432;
+  #   initialScript = ''
+  #     CREATE ROLE pguser LOGIN SUPERUSER PASSWORD 'password';
+  #   '';
+  #   initialDatabases = [{name = "unik";}];
+  # };
 
-  # https://devenv.sh/languages/
-  # languages.nix.enable = true;
+  # env.PRISMA_MIGRATION_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/migration-engine";
+  # env.PRISMA_QUERY_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/query-engine";
+  # env.PRISMA_QUERY_ENGINE_LIBRARY = "${pkgs.prisma-engines}/lib/libquery_engine.node";
+  # env.PRISMA_INTROSPECTION_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/introspection-engine";
+  # env.PRISMA_FMT_BINARY = "${pkgs.prisma-engines}/bin/prisma-fmt";
 
-  # https://devenv.sh/pre-commit-hooks/
-  # pre-commit.hooks.shellcheck.enable = true;
-
-  # https://devenv.sh/processes/
-  # processes.ping.exec = "ping example.com";
-
-  # See full reference at https://devenv.sh/reference/options/
+  
+  # services.redis.enable = true;
+  processes.server = {
+    exec = "pnpm start:dev";
+  };
 }
